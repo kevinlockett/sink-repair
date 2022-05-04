@@ -10,7 +10,7 @@ export const getRequests = () => {
     return applicationState.requests.map(request => ({ ...request }))
 }
 
-//Fetch
+//GET
 export const fetchRequests = () => {
     return fetch(`${API}/requests`)
         .then(response => response.json())
@@ -22,7 +22,7 @@ export const fetchRequests = () => {
         )
 }
 
-//Post
+//POST
 export const sendRequest = (userServiceRequest) => {
     const fetchOptions = {
         method: "POST",
@@ -38,4 +38,14 @@ export const sendRequest = (userServiceRequest) => {
         .then(() => {
             mainContainer.dispatchEvent(new CustomEvent("stateChanged"))
         })
+}
+
+//DELETE
+export const deleteRequest = (id) => {
+    return fetch(`${API}/requests/${id}`, { method: "DELETE" })
+        .then(
+            () => {
+                mainContainer.dispatchEvent(new CustomEvent("stateChanged"))
+            }
+        )
 }
